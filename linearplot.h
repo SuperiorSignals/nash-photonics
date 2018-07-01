@@ -8,11 +8,23 @@
 #include <glad/glad.h>
 #include <vector>
 
+#include "linearprimitive.h"
 #include "position.h"
 
 class LinearPlot : public Plot {
 public:
 	LinearPlot();
+	void createGrid(GLfloat vertex[], int vertexNumber);
+	void createGraph(GLfloat vertex[], int vertexNumber);
+	void createGrid();
+	void createGraph();
+	int getScreenHeight();
+	int getScreenWidth();
+	GLfloat *getVertices();
+	void setScreenHeight(int input);
+	void setScreenWidth(int input);
+	void setVertices(GLfloat *input);
+
 	GLfloat xGridStart;
 	GLfloat xGridEnd;
 	GLfloat xGridResolution;
@@ -23,14 +35,14 @@ public:
 	GLfloat xScale;
 	GLfloat yOriginLocation;
 	GLfloat yScale;
-	int screenWidth;
 	int screenHeight;
+	int screenWidth;
 
 	std::vector<Position<GLfloat>> graph;
-
-	void createGrid(GLfloat vertices[], int vertexNumber);
-	void createGraph(GLfloat vertices[], int vertexNumber);
-
+private:
+	LinearPrimitive linearPrimitive;
+	GLfloat *vertices;
+	int arraySize;
 };
 
 #endif // !_LINEARPLOT_H_
