@@ -1,0 +1,140 @@
+#pragma once
+#ifndef _LINEARPRIMITIVE_H_
+#define _LINEARPRIMITIVE_H_
+
+#include "color.h"
+#include "position.h"
+
+const int ELEMENT_SIZE = 7;
+
+class LinearPrimitive {
+public:
+	LinearPrimitive();
+	Color<float> getBackgroundColor();
+	int getCounter();
+	Color<float> getElementColor();
+	int getStride();
+	float *getVertices();
+	void setBackgroundColor(float r, float g, float b);
+	void setBackgroundColor(Color<float> input);
+	void setCounter(int input);
+	void setElementColor(float r, float g, float b);
+	void setElementColor(Color<float> input);
+	void setStride(int input);
+	void setVertices(float *vertices);
+
+	void line(Position<float> start, Position<float> end);
+	
+private:
+	float *vertices; // pointer to vertex array
+	Color<float> backgroundColor;
+	Color<float> elementColor;
+	int counter;	// current vertex position
+	int maximum;	// maximum number of elements
+	int stride;
+};
+
+LinearPrimitive::LinearPrimitive()
+{
+	counter = 0;
+	stride = ELEMENT_SIZE;
+	backgroundColor.setA(0.0f);
+}
+
+Color<float> LinearPrimitive::getBackgroundColor()
+{
+	return backgroundColor;
+}
+
+int LinearPrimitive::getCounter()
+{
+	return counter;
+}
+
+Color<float> LinearPrimitive::getElementColor()
+{
+	return elementColor;
+}
+
+int LinearPrimitive::getStride()
+{
+	return stride;
+}
+
+float *LinearPrimitive::getVertices()
+{
+	return vertices;
+}
+
+void LinearPrimitive::setBackgroundColor(float r, float g, float b)
+{
+	backgroundColor.setColor(r, g, b);
+}
+
+void LinearPrimitive::setBackgroundColor(Color<float> input)
+{
+	backgroundColor = input;
+}
+
+void LinearPrimitive::setCounter(int input)
+{
+	counter = input;
+}
+
+void LinearPrimitive::setElementColor(float r, float g, float b)
+{
+	elementColor.setColor(r, g, b);
+}
+
+void LinearPrimitive::setElementColor(Color<float> input)
+{
+	elementColor = input;
+}
+
+void LinearPrimitive::setStride(int input)
+{
+	stride = input;
+}
+
+void LinearPrimitive::setVertices(float *input)
+{
+	vertices = input;
+}
+
+void LinearPrimitive::line(Position<float> start, Position<float> end)
+{
+	vertices[stride * counter + 0] = start.getX();
+	vertices[stride * counter + 1] = start.getY();
+	vertices[stride * counter + 2] = start.getZ();
+	vertices[stride * counter + 3] = backgroundColor.getR();
+	vertices[stride * counter + 4] = backgroundColor.getG();
+	vertices[stride * counter + 5] = backgroundColor.getB();
+	vertices[stride * counter + 6] = backgroundColor.getA();
+	++counter;
+	vertices[stride * counter + 0] = start.getX();
+	vertices[stride * counter + 1] = start.getY();
+	vertices[stride * counter + 2] = start.getZ();
+	vertices[stride * counter + 3] = elementColor.getR();
+	vertices[stride * counter + 4] = elementColor.getG();
+	vertices[stride * counter + 5] = elementColor.getB();
+	vertices[stride * counter + 6] = elementColor.getA();
+	++counter;
+	vertices[stride * counter + 0] = end.getX();
+	vertices[stride * counter + 1] = end.getY();
+	vertices[stride * counter + 2] = end.getZ();
+	vertices[stride * counter + 3] = elementColor.getR();
+	vertices[stride * counter + 4] = elementColor.getG();
+	vertices[stride * counter + 5] = elementColor.getB();
+	vertices[stride * counter + 6] = elementColor.getA();
+	++counter;
+	vertices[stride * counter + 0] = end.getX();
+	vertices[stride * counter + 1] = end.getY();
+	vertices[stride * counter + 2] = end.getZ();
+	vertices[stride * counter + 3] = backgroundColor.getR();
+	vertices[stride * counter + 4] = backgroundColor.getG();
+	vertices[stride * counter + 5] = backgroundColor.getB();
+	vertices[stride * counter + 6] = backgroundColor.getA();
+	++counter;
+}
+
+#endif _LINEARPRIMITIVE_H_
