@@ -3,9 +3,13 @@
 #define _SURFACEPLOT_H_
 
 #include "plot.h"
+#include "version.h"
 
-//#include <GL/glew.h>
-#include <glad/glad.h>
+#ifdef WORK_VERSION
+	#include <GL/glew.h>
+#else
+	#include <glad/glad.h>
+#endif // WORK_VERSION
 
 class SurfacePlot : public Plot {
 public:

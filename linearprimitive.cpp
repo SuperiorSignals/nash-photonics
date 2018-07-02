@@ -67,3 +67,67 @@ void LinearPrimitive::line(Position<float> start, Position<float> end)
 	vertices[stride * counter + 6] = backgroundColor.getA();
 	++counter;
 }
+
+void LinearPrimitive::segment(Position<GLfloat> start, Position<GLfloat> end)
+{
+	vertices[stride * counter + 0] = start.getX();
+	vertices[stride * counter + 1] = start.getY();
+	vertices[stride * counter + 2] = start.getZ();
+	vertices[stride * counter + 3] = elementColor.getR();
+	vertices[stride * counter + 4] = elementColor.getG();
+	vertices[stride * counter + 5] = elementColor.getB();
+	vertices[stride * counter + 6] = elementColor.getA();
+	++counter;
+	vertices[stride * counter + 0] = end.getX();
+	vertices[stride * counter + 1] = end.getY();
+	vertices[stride * counter + 2] = end.getZ();
+	vertices[stride * counter + 3] = elementColor.getR();
+	vertices[stride * counter + 4] = elementColor.getG();
+	vertices[stride * counter + 5] = elementColor.getB();
+	vertices[stride * counter + 6] = elementColor.getA();
+	++counter;
+}
+
+void LinearPrimitive::box(Position<GLfloat> start, Position<GLfloat> end)
+{
+	vertices[stride * counter + 0] = start.getX();
+	vertices[stride * counter + 1] = start.getY();
+	vertices[stride * counter + 2] = start.getZ();
+	vertices[stride * counter + 3] = elementColor.getR();
+	vertices[stride * counter + 4] = elementColor.getG();
+	vertices[stride * counter + 5] = elementColor.getB();
+	vertices[stride * counter + 6] = elementColor.getA();
+	++counter;
+	vertices[stride * counter + 0] = end.getX();
+	vertices[stride * counter + 1] = start.getY();
+	vertices[stride * counter + 2] = end.getZ();
+	vertices[stride * counter + 3] = elementColor.getR();
+	vertices[stride * counter + 4] = elementColor.getG();
+	vertices[stride * counter + 5] = elementColor.getB();
+	vertices[stride * counter + 6] = elementColor.getA();
+	++counter;
+	vertices[stride * counter + 0] = end.getX();
+	vertices[stride * counter + 1] = end.getY();
+	vertices[stride * counter + 2] = end.getZ();
+	vertices[stride * counter + 3] = elementColor.getR();
+	vertices[stride * counter + 4] = elementColor.getG();
+	vertices[stride * counter + 5] = elementColor.getB();
+	vertices[stride * counter + 6] = elementColor.getA();
+	++counter;
+	vertices[stride * counter + 0] = start.getX();
+	vertices[stride * counter + 1] = end.getY();
+	vertices[stride * counter + 2] = end.getZ();
+	vertices[stride * counter + 3] = elementColor.getR();
+	vertices[stride * counter + 4] = elementColor.getG();
+	vertices[stride * counter + 5] = elementColor.getB();
+	vertices[stride * counter + 6] = elementColor.getA();
+	++counter;
+	vertices[stride * counter + 0] = start.getX();
+	vertices[stride * counter + 1] = start.getY();
+	vertices[stride * counter + 2] = start.getZ();
+	vertices[stride * counter + 3] = elementColor.getR();
+	vertices[stride * counter + 4] = elementColor.getG();
+	vertices[stride * counter + 5] = elementColor.getB();
+	vertices[stride * counter + 6] = elementColor.getA();
+	++counter;
+}

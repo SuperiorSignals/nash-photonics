@@ -2,8 +2,14 @@
 #ifndef SHADER_H_
 #define SHADER_H_
 
+#include "version.h"
+
 #include <fstream>
-#include <glad/glad.h>
+#ifdef WORK_VERSION
+	#include <GL/glew.h>
+#else
+	#include <glad/glad.h>
+#endif // WORK_VERSION
 #include <iostream>
 #include <string>
 #include <sstream>

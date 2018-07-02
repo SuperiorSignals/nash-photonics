@@ -2,7 +2,13 @@
 #ifndef _LINEARPRIMITIVE_H_
 #define _LINEARPRIMITIVE_H_
 
+#include "version.h"
+
+#ifdef WORK_VERSION
+#include <GL/glew.h>
+#else
 #include <glad/glad.h>
+#endif // WORK_VERSION
 #include "color.h"
 #include "position.h"
 
@@ -15,7 +21,7 @@ public:
 	int getCounter();
 	Color<float> getElementColor();
 	int getStride();
-	float *getVertices();
+	GLfloat *getVertices();
 	void setBackgroundColor(float r, float g, float b);
 	void setBackgroundColor(Color<float> input);
 	void setCounter(int input);
@@ -24,7 +30,9 @@ public:
 	void setStride(int input);
 	void setVertices(float *vertices);
 
-	void line(Position<float> start, Position<float> end);
+	void line(Position<GLfloat> start, Position<GLfloat> end);
+	void segment(Position<GLfloat> start, Position<GLfloat> end);
+	void box(Position<GLfloat> start, Position<GLfloat> end);
 	
 private:
 	GLfloat *vertices; // pointer to vertex array

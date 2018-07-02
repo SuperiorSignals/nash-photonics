@@ -3,9 +3,13 @@
 #define _LINEARPLOT_H_
 
 #include "plot.h"
+#include "version.h"
 
-//#include <GL/glew.h>
-#include <glad/glad.h>
+#ifdef WORK_VERSION
+	#include <GL/glew.h>
+#else
+	#include <glad/glad.h>
+#endif // WORK_VERSION
 #include <vector>
 
 #include "linearprimitive.h"
@@ -18,9 +22,17 @@ public:
 	void createGraph(GLfloat vertex[], int vertexNumber);
 	void createGrid();
 	void createGraph();
+	Color<GLfloat> getBackroundColor();
+	std::vector<Position<GLfloat>> getGraph();
+	Color<GLfloat> getGraphColor();
+	Color<GLfloat> getGridColor();
 	int getScreenHeight();
 	int getScreenWidth();
 	GLfloat *getVertices();
+	void setBackgroundColor(Color<GLfloat> input);
+	void setGraph(std::vector<Position<GLfloat>> input);
+	void setGraphColor(Color<GLfloat> input);
+	void setGridColor(Color<GLfloat> input);
 	void setScreenHeight(int input);
 	void setScreenWidth(int input);
 	void setVertices(GLfloat *input);
@@ -38,11 +50,14 @@ public:
 	int screenHeight;
 	int screenWidth;
 
-	std::vector<Position<GLfloat>> graph;
 private:
 	LinearPrimitive linearPrimitive;
 	GLfloat *vertices;
-	int arraySize;
+	std::vector<Position<GLfloat>> graph;
+	int vertexSize;
+	Color<GLfloat> backgroundColor;
+	Color<GLfloat> gridColor;
+	Color<GLfloat> graphColor;
 };
 
 #endif // !_LINEARPLOT_H_
