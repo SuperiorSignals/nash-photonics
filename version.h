@@ -6,6 +6,7 @@
 // HOME_VERSION uses glad
 
 // HOME_VERSION uses pre-compiled headers for main.cpp
+// HOME_VERSION not yet implemented, just comment out WORK_VERSION!
 
 #define WORK_VERSION
 //#define HOME_VERSION
@@ -35,8 +36,8 @@ Linker >> Input >> Additional Dependencies
 opengl32.lib
 glew32.lib
 glfw3.lib
-
 */
+
 /*
 Work Directories
 ----------------

@@ -216,6 +216,7 @@ void LinearPlot::createGraph()
 	}
 }
 Color<GLfloat> LinearPlot::getBackroundColor() { return backgroundColor; }
+int LinearPlot::getCounter() { return linearPrimitive.getCounter(); }
 std::vector<Position<GLfloat>> LinearPlot::getGraph() { return graph; }
 Color<GLfloat> LinearPlot::getGraphColor() { return graphColor; }
 Color<GLfloat> LinearPlot::getGridColor() { return gridColor; }

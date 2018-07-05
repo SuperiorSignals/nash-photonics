@@ -23,6 +23,7 @@ public:
 	void createGrid();
 	void createGraph();
 	Color<GLfloat> getBackroundColor();
+	int getCounter();
 	std::vector<Position<GLfloat>> getGraph();
 	Color<GLfloat> getGraphColor();
 	Color<GLfloat> getGridColor();

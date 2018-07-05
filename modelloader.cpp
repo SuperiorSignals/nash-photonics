@@ -5,12 +5,16 @@ int ModelLoader::getModel(GLfloat *vertices, int modelNumber)
 {
 	int vertexNumber;
 
+	vertexNumber = 0;
+
 	return vertexNumber;
 }
 
 int ModelLoader::getModel(GLfloat *vertices)
 {
 	int vertexNumber;
+
+	vertexNumber = 0;
 
 	return vertexNumber;
 }

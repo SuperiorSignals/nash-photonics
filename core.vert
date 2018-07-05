@@ -4,8 +4,10 @@ layout (location = 1) in vec4 aColor;
 
 out vec4 myColor;
 
+uniform mat4 model;
+
 void main()
 {
-	gl_Position = vec4(aPosition.x, aPosition.y, aPosition.z, 1.0);
+	gl_Position = model * vec4(aPosition.x, aPosition.y, aPosition.z, 1.0);
 	myColor = aColor;
 }

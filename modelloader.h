@@ -5,11 +5,13 @@
 #include "version.h"
 
 #ifdef WORK_VERSION
-#include <GL/glew.h>
+	#include <GL/glew.h>
 #else
-#include <glad/glad.h>
+	#include <glad/glad.h>
 #endif // WORK_VERSION
 #include <functional>
+
+
 
 class ModelLoader {
 public:
