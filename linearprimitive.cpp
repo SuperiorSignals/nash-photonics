@@ -1,5 +1,7 @@
 #include "linearprimitive.h"
 
+#include <iostream>
+
 
 LinearPrimitive::LinearPrimitive()
 {
@@ -30,9 +32,9 @@ void LinearPrimitive::setElementColor(float r, float g, float b)
 void LinearPrimitive::setElementColor(Color<float> input) { elementColor = input; }
 
 void LinearPrimitive::setStride(int input) { stride = input; }
-void LinearPrimitive::setVertices(float *input) { vertices = input; }
+void LinearPrimitive::setVertices(GLfloat *input) { vertices = input; }
 
-void LinearPrimitive::line(Position<float> start, Position<float> end)
+void LinearPrimitive::line(Position<GLfloat> start, Position<GLfloat> end)
 {
 	vertices[stride * counter + 0] = start.getX();
 	vertices[stride * counter + 1] = start.getY();

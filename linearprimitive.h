@@ -28,7 +28,7 @@ public:
 	void setElementColor(float r, float g, float b);
 	void setElementColor(Color<float> input);
 	void setStride(int input);
-	void setVertices(float *vertices);
+	void setVertices(GLfloat *vertices);
 
 	void line(Position<GLfloat> start, Position<GLfloat> end);
 	void segment(Position<GLfloat> start, Position<GLfloat> end);
