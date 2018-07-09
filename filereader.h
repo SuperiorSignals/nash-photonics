@@ -18,7 +18,7 @@ Text Version
 ------------
 1. Number of components
 2. Component offsets
-3. Element numbers
+3. Element numbers - element count per array
 4. Number of Arrays
 */
 

@@ -183,15 +183,25 @@ void fdtdSixFiveNine(double frequency)
 	temporary = deltaSpace / lightSpeed;
 	deltaTime = ((deltaTime < temporary) ? deltaTime : temporary); // Courant stability condition
 
-	outputFile << "Grid Resolution: " << deltaSpace;
+	outputFile << 1;
 	outputFile << std::endl;
-	outputFile << "Time Resolution: " << deltaTime;
+	outputFile << 0;
 	outputFile << std::endl;
-	outputFile << "Source: ";
+	outputFile << zCount;
+	outputFile << std::endl;
+	outputFile << steps;
+	outputFile << std::endl;
+
+	std::cout << "Grid Resolution: " << deltaSpace;
+	std::cout << std::endl;
+	std::cout << "Time Resolution: " << deltaTime;
+	std::cout << std::endl;
+	std::cout << "Source: ";
 	for (int i = 0; i < zCount; i++) {
-		outputFile << source(static_cast<double>(i) * deltaTime, frequency) << " ";
+		std::cout << source(static_cast<double>(i) * deltaTime, frequency);
+		std::cout << std::endl;
 	}
-	outputFile << std::endl;
+	std::cout << std::endl;
 
 	for (int i = 0; i < zCount; i++) { // Initialize materials to free space
 		relativePermittivity[i] = 1.0;
@@ -233,8 +243,9 @@ void fdtdSixFiveNine(double frequency)
 
 		// Inject soft source
 		electricField[sourceLocation] = electricField[sourceLocation] + source(static_cast<double>(i) * deltaTime, frequency);
-		for (int j = 0; j < zCount; j++) {
-			outputFile << electricField[j] << "\t";
+		for (int j = 0; j < zCount; j++) { // Write values to file
+			outputFile << electricField[j];
+			outputFile << std::endl;
 		}
 		outputFile << std::endl;
 	}
