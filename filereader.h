@@ -27,6 +27,8 @@ public:
 	FileReader();
 	FileReader(std::string file);
 	void fillMatrix(double *output);
+	std::vector<double> getArray();
+	std::vector<double> getArray(int input);
 	unsigned int getArrayNumber();
 	unsigned int getComponentNumber();
 	unsigned int getElementNumber();
@@ -37,6 +39,7 @@ public:
 private:
 	unsigned int arrayNumber;
 	unsigned int componentNumber;
+	unsigned int currentArray;
 	unsigned int currentComponent;
 	unsigned int currentElement;
 	unsigned int elementNumber;
