@@ -40,6 +40,13 @@ std::vector<double> FileReader::getArray()
 			}
 			inputFile >> elementNumber;
 			inputFile >> arrayNumber;
+
+			for (int i = 0; i < arrayNumber; i++) {
+				for (int j = 0; j < componentNumber; j++) {
+
+				}
+			}
+
 		} else {
 			std::cout << "ERROR [void FileReader::loadFile()]: ";
 			std::cout << "Unable to open file ";
@@ -73,6 +80,11 @@ std::vector<double> FileReader::getArray(int input)
 			}
 			inputFile >> elementNumber;
 			inputFile >> arrayNumber;
+
+			for (int i = 0; i < arrayNumber; i++) {
+				for (int j = 0; j < componentNumber; j++) {
+				}
+			}
 		} else {
 			std::cout << "ERROR [void FileReader::loadFile()]: ";
 			std::cout << "Unable to open file ";
