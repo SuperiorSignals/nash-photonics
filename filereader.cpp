@@ -68,6 +68,7 @@ std::vector<double> FileReader::getArray(int input)
 	std::vector<double> output;
 	unsigned int offset;
 	double trashCan;
+	double value;
 
 	if (isFileNameSet) {
 		inputFile.open(fileName.c_str());
@@ -81,10 +82,26 @@ std::vector<double> FileReader::getArray(int input)
 			inputFile >> elementNumber;
 			inputFile >> arrayNumber;
 
-			for (int i = 0; i < arrayNumber; i++) {
+			if (arrayNumber > 0) {
+				for (int i = 0; i < currentArray; i++) {
+					for (int j = 0; j < componentNumber; j++) {
+						while (!inputFile.eof()) {
+							inputFile >> trashCan;
+						}
+					}
+				}
 				for (int j = 0; j < componentNumber; j++) {
+					while (!inputFile.eof()) {
+						inputFile >> value;
+						output.push_back(value);
+					}
+				}
+				++currentArray;
+				if (currentArray > arrayNumber - 1) {
+					currentArray = 0;
 				}
 			}
+
 		} else {
 			std::cout << "ERROR [void FileReader::loadFile()]: ";
 			std::cout << "Unable to open file ";
