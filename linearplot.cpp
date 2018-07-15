@@ -215,6 +215,7 @@ void LinearPlot::createGraph()
 		linearPrimitive.segment(startPosition, endPosition);
 	}
 }
+
 Color<GLfloat> LinearPlot::getBackroundColor() { return backgroundColor; }
 int LinearPlot::getCounter() { return linearPrimitive.getCounter(); }
 std::vector<Position<GLfloat>> LinearPlot::getGraph() { return graph; }
@@ -224,10 +225,21 @@ int LinearPlot::getScreenHeight() { return screenHeight; }
 int LinearPlot::getScreenWidth() { return screenWidth; }
 GLfloat *LinearPlot::getVertices() { return vertices; }
 void LinearPlot::setBackgroundColor(Color<GLfloat> input) { backgroundColor = input; }
-void LinearPlot::setGraph(std::vector<Position<GLfloat>> input) 
-{ 
-	graph = input;
+void LinearPlot::setGraph(std::vector<Position<GLfloat>> input) { graph = input; }
+
+void LinearPlot::setGraph(std::vector<Position<double>> input)
+{
+	Position<GLfloat> temporary;
+
+	graph.clear();
+	for (int i = 0; i < input.size(); i++) {
+		temporary.setX(static_cast<GLfloat>(input[i].getX()));
+		temporary.setY(static_cast<GLfloat>(input[i].getY()));
+		temporary.setZ(static_cast<GLfloat>(input[i].getZ()));
+		graph.push_back(temporary);
+	}
 }
+
 void LinearPlot::setGraphColor(Color<GLfloat> input) { graphColor = input; }
 void LinearPlot::setGridColor(Color<GLfloat> input) { gridColor = input; }
 void LinearPlot::setScreenHeight(int input) { screenHeight = input; }

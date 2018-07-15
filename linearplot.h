@@ -32,6 +32,7 @@ public:
 	GLfloat *getVertices();
 	void setBackgroundColor(Color<GLfloat> input);
 	void setGraph(std::vector<Position<GLfloat>> input);
+	void setGraph(std::vector<Position<double>> input);
 	void setGraphColor(Color<GLfloat> input);
 	void setGridColor(Color<GLfloat> input);
 	void setScreenHeight(int input);

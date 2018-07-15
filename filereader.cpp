@@ -28,25 +28,39 @@ std::vector<double> FileReader::getArray()
 	std::vector<double> output;
 	unsigned int offset;
 	double trashCan;
+	double value;
 
 	if (isFileNameSet) {
 		inputFile.open(fileName.c_str());
 		if (inputFile.is_open()) {
-			inputFile >> componentNumber;
+			inputFile >> numberOfComponents;
 			componentOffsets.clear();
-			for (int i = 0; i < componentNumber; i++) {
+			for (int i = 0; i < numberOfComponents; i++) {
 				inputFile >> offset;
 				componentOffsets.push_back(offset);
 			}
-			inputFile >> elementNumber;
-			inputFile >> arrayNumber;
+			inputFile >> numberOfElements;
+			inputFile >> numberOfArrays;
 
-			for (int i = 0; i < arrayNumber; i++) {
-				for (int j = 0; j < componentNumber; j++) {
-
+			if (numberOfArrays > 0) {
+				for (int i = 0; i < currentArray; i++) {
+					for (int j = 0; j < numberOfElements; j++) {
+						if (!inputFile.eof()) {
+							inputFile >> trashCan;
+						}
+					}
+				}
+				for (int j = 0; j < numberOfElements; j++) {
+					if (!inputFile.eof()) {
+						inputFile >> value;
+						output.push_back(value);
+					}
+				}
+				++currentArray;
+				if (currentArray > numberOfArrays - 1) {
+					currentArray = 0;
 				}
 			}
-
 		} else {
 			std::cout << "ERROR [void FileReader::loadFile()]: ";
 			std::cout << "Unable to open file ";
@@ -73,35 +87,34 @@ std::vector<double> FileReader::getArray(int input)
 	if (isFileNameSet) {
 		inputFile.open(fileName.c_str());
 		if (inputFile.is_open()) {
-			inputFile >> componentNumber;
+			inputFile >> numberOfComponents;
 			componentOffsets.clear();
-			for (int i = 0; i < componentNumber; i++) {
+			for (int i = 0; i < numberOfComponents; i++) {
 				inputFile >> offset;
 				componentOffsets.push_back(offset);
 			}
-			inputFile >> elementNumber;
-			inputFile >> arrayNumber;
+			inputFile >> numberOfElements;
+			inputFile >> numberOfArrays;
 
-			if (arrayNumber > 0) {
+			if (numberOfArrays > 0) {
 				for (int i = 0; i < currentArray; i++) {
-					for (int j = 0; j < componentNumber; j++) {
-						while (!inputFile.eof()) {
+					for (int j = 0; j < numberOfElements; j++) {
+						if (!inputFile.eof()) {
 							inputFile >> trashCan;
 						}
 					}
 				}
-				for (int j = 0; j < componentNumber; j++) {
-					while (!inputFile.eof()) {
+				for (int j = 0; j < numberOfElements; j++) {
+					if (!inputFile.eof()) {
 						inputFile >> value;
 						output.push_back(value);
 					}
 				}
 				++currentArray;
-				if (currentArray > arrayNumber - 1) {
+				if (currentArray > numberOfArrays - 1) {
 					currentArray = 0;
 				}
 			}
-
 		} else {
 			std::cout << "ERROR [void FileReader::loadFile()]: ";
 			std::cout << "Unable to open file ";
@@ -125,14 +138,14 @@ void FileReader::loadFile()
 	if (isFileNameSet) {
 		inputFile.open(fileName.c_str());
 		if (inputFile.is_open()) {
-			inputFile >> componentNumber;
+			inputFile >> numberOfComponents;
 			componentOffsets.clear();
-			for (int i = 0; i < componentNumber; i++) {
+			for (int i = 0; i < numberOfComponents; i++) {
 				inputFile >> offset;
 				componentOffsets.push_back(offset);
 			}
-			inputFile >> elementNumber;
-			inputFile >> arrayNumber;
+			inputFile >> numberOfElements;
+			inputFile >> numberOfArrays;
 		} else {
 			std::cout << "ERROR [void FileReader::loadFile()]: ";
 			std::cout << "Unable to open file ";
@@ -145,4 +158,45 @@ void FileReader::loadFile()
 		std::cout << "Filename has not been set.";
 		std::cout << std::endl;
 	}
+}
+
+unsigned int FileReader::getCurrentArray()
+{
+	return currentArray;
+}
+
+unsigned int FileReader::getCurrentComponent()
+{
+	return currentComponent;
+}
+
+unsigned int FileReader::getCurrentElement()
+{
+	return currentElement;
+}
+
+unsigned int FileReader::getNumberOfArrays()
+{
+	return numberOfArrays;
+}
+
+unsigned int FileReader::getNumberOfComponents()
+{
+	return numberOfComponents;
+}
+
+unsigned int FileReader::getNumberOfElements()
+{
+	return numberOfElements;
+}
+
+std::string FileReader::getFileName()
+{
+	return fileName;
+}
+
+void FileReader::setFileName(std::string input)
+{
+	fileName = input;
+	isFileNameSet = true;
 }

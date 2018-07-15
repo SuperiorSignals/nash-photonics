@@ -29,20 +29,22 @@ public:
 	void fillMatrix(double *output);
 	std::vector<double> getArray();
 	std::vector<double> getArray(int input);
-	unsigned int getArrayNumber();
-	unsigned int getComponentNumber();
-	unsigned int getElementNumber();
+	unsigned int getCurrentArray();
+	unsigned int getCurrentComponent();
+	unsigned int getCurrentElement();
+	unsigned int getNumberOfArrays();
+	unsigned int getNumberOfComponents();
+	unsigned int getNumberOfElements();
 	std::string getFileName();
-	void setComponentNumber();
 	void setFileName(std::string input);
 
 private:
-	unsigned int arrayNumber;
-	unsigned int componentNumber;
 	unsigned int currentArray;
 	unsigned int currentComponent;
 	unsigned int currentElement;
-	unsigned int elementNumber;
+	unsigned int numberOfArrays;
+	unsigned int numberOfComponents;
+	unsigned int numberOfElements;
 	std::ifstream inputFile;
 	std::ofstream outputFile;
 	std::string fileName;
