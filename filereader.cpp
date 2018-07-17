@@ -23,6 +23,55 @@ FileReader::FileReader(std::string input)
 	currentElement = 0;
 }
 
+void FileReader::fillArray(double output[][512])
+{
+	unsigned int offset;
+	double trashCan;
+	double value;
+
+	if (isFileNameSet) {
+		inputFile.open(fileName.c_str());
+		if (inputFile.is_open()) {
+			inputFile >> numberOfComponents;
+			componentOffsets.clear();
+			for (int i = 0; i < numberOfComponents; i++) {
+				inputFile >> offset;
+				componentOffsets.push_back(offset);
+			}
+			inputFile >> numberOfElements;
+			inputFile >> numberOfArrays;
+
+			currentArray = 0;
+			if (numberOfArrays > 0) {
+				for (int i = 0; i < numberOfArrays; i++) {
+					for (int j = 0; j < numberOfElements; j++) {
+						if (!inputFile.eof()) {
+							inputFile >> value;
+							if (j < 512) {
+								output[i][j] = value;
+							}
+						}
+					}
+					++currentArray;
+				}
+				if (currentArray > numberOfArrays - 1) {
+					currentArray = 0;
+				}
+			}
+		} else {
+			std::cout << "ERROR [void FileReader::fillArray(double output[][512])]: ";
+			std::cout << "Unable to open file ";
+			std::cout << fileName;
+			std::cout << std::endl;
+		}
+		inputFile.close();
+	} else {
+		std::cout << "ERROR [void FileReader::fillArray(double output[][512])]: ";
+		std::cout << "Filename has not been set.";
+		std::cout << std::endl;
+	}
+}
+
 std::vector<double> FileReader::getArray()
 {
 	std::vector<double> output;
@@ -62,14 +111,14 @@ std::vector<double> FileReader::getArray()
 				}
 			}
 		} else {
-			std::cout << "ERROR [void FileReader::loadFile()]: ";
+			std::cout << "ERROR [std::vector<double> FileReader::getArray()]: ";
 			std::cout << "Unable to open file ";
 			std::cout << fileName;
 			std::cout << std::endl;
 		}
 		inputFile.close();
 	} else {
-		std::cout << "ERROR [void FileReader::loadFile()]: ";
+		std::cout << "ERROR [std::vector<double> FileReader::getArray()]: ";
 		std::cout << "Filename has not been set.";
 		std::cout << std::endl;
 	}
@@ -116,14 +165,14 @@ std::vector<double> FileReader::getArray(int input)
 				}
 			}
 		} else {
-			std::cout << "ERROR [void FileReader::loadFile()]: ";
+			std::cout << "ERROR [std::vector<double> FileReader::getArray(int)]: ";
 			std::cout << "Unable to open file ";
 			std::cout << fileName;
 			std::cout << std::endl;
 		}
 		inputFile.close();
 	} else {
-		std::cout << "ERROR [void FileReader::loadFile()]: ";
+		std::cout << "ERROR [std::vector<double> FileReader::getArray(int)]: ";
 		std::cout << "Filename has not been set.";
 		std::cout << std::endl;
 	}

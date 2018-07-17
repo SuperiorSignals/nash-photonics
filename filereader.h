@@ -26,7 +26,7 @@ class FileReader {
 public:
 	FileReader();
 	FileReader(std::string file);
-	void fillMatrix(double *output);
+	void fillArray(double output[][512]);
 	std::vector<double> getArray();
 	std::vector<double> getArray(int input);
 	unsigned int getCurrentArray();

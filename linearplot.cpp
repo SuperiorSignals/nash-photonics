@@ -85,6 +85,7 @@ void LinearPlot::createGraph(GLfloat vertex[], int vertexNumber)
 
 }
 
+/*
 void LinearPlot::createGrid()
 {
 	GLint verticalSize;
@@ -170,6 +171,140 @@ void LinearPlot::createGrid()
 		endPosition.setZ(0);
 		linearPrimitive.line(startPosition, endPosition);
 	}
+}
+*/
+
+void LinearPlot::createGrid()
+{
+	GLint verticalSize;
+	GLint horizontalSize;
+	int totalCount;
+	GLfloat aspectRatio;
+	GLfloat globalScaling;
+	GLfloat horizontalScaling;
+	GLfloat verticalScaling;
+	Position<float> startPosition;
+	Position<float> endPosition;
+
+	aspectRatio = static_cast<float>(screenHeight) / static_cast<float>(screenWidth);
+	linearPrimitive.setVertices(vertices);
+	totalCount = 0;
+
+	verticalSize = yGridEnd - yGridStart;
+	horizontalSize = xGridEnd - xGridStart;
+	globalScaling = ((horizontalSize > verticalSize) ? horizontalSize : verticalSize);
+	globalScaling = 1 / globalScaling;
+
+	horizontalScaling = globalScaling * aspectRatio;
+	horizontalScaling *= xScale;
+	verticalScaling = globalScaling;
+	verticalScaling *= yScale;
+
+	verticalSize = (yGridEnd - yGridStart) / yGridResolution;
+	horizontalSize = (xGridEnd - xGridStart) / xGridResolution;
+
+	gridColor.setColor(0.75f, 0.75f, 0.75f);
+	backgroundColor.setColor(0.25f, 0.25f, 0.25f, 0.0f);
+	linearPrimitive.setElementColor(gridColor);
+	linearPrimitive.setBackgroundColor(backgroundColor);
+	// Draw box outline
+	startPosition.setX(horizontalScaling * xGridStart);
+	startPosition.setY(verticalScaling * yGridStart);
+	startPosition.setZ(0);
+	endPosition.setX(horizontalScaling * xGridEnd);
+	endPosition.setY(verticalScaling * yGridStart);
+	endPosition.setZ(0);
+	linearPrimitive.line(startPosition, endPosition);
+
+	startPosition.setX(horizontalScaling * xGridEnd);
+	startPosition.setY(verticalScaling * yGridStart);
+	startPosition.setZ(0);
+	endPosition.setX(horizontalScaling * xGridEnd);
+	endPosition.setY(verticalScaling * yGridEnd);
+	endPosition.setZ(0);
+	linearPrimitive.line(startPosition, endPosition);
+
+	endPosition.setX(horizontalScaling * xGridEnd);
+	endPosition.setY(verticalScaling * yGridEnd);
+	endPosition.setZ(0);
+	startPosition.setX(horizontalScaling * xGridStart);
+	startPosition.setY(verticalScaling * yGridEnd);
+	startPosition.setZ(0);
+	linearPrimitive.line(endPosition, startPosition);
+
+	startPosition.setX(horizontalScaling * xGridStart);
+	startPosition.setY(verticalScaling * yGridEnd);
+	startPosition.setZ(0);
+	endPosition.setX(horizontalScaling * xGridStart);
+	endPosition.setY(verticalScaling * yGridStart);
+	endPosition.setZ(0);
+	linearPrimitive.line(startPosition, endPosition);
+
+	// Draw grid
+	for (int i = 0; i < verticalSize; i++) { // Draw horizontal lines
+		startPosition.setX(horizontalScaling * (xGridStart));
+		startPosition.setY(verticalScaling * (i * yGridResolution));
+		startPosition.setZ(0);
+		endPosition.setX(horizontalScaling * (xGridEnd));
+		endPosition.setY(verticalScaling * (i * yGridResolution));
+		endPosition.setZ(0);		
+		linearPrimitive.segment(startPosition, endPosition);
+		startPosition.setX(horizontalScaling * (xGridEnd));
+		startPosition.setY(verticalScaling * (i * yGridResolution));
+		startPosition.setZ(0);
+		endPosition.setX(horizontalScaling * (xGridEnd));
+		endPosition.setY(verticalScaling * ((i + 1) * yGridResolution));
+		endPosition.setZ(0);
+		linearPrimitive.segment(startPosition, endPosition);
+	}
+	// Travel to origin
+	startPosition.setX(horizontalScaling * (xGridEnd));
+	startPosition.setY(verticalScaling * (verticalSize * yGridResolution));
+	startPosition.setZ(0);
+	endPosition.setX(0);
+	endPosition.setY(verticalScaling * (verticalSize * yGridResolution));
+	endPosition.setZ(0);
+	linearPrimitive.segment(startPosition, endPosition);
+	startPosition.setX(0);
+	startPosition.setY(verticalScaling * (verticalSize * yGridResolution));
+	startPosition.setZ(0);
+	endPosition.setX(0);
+	endPosition.setY(0);
+	endPosition.setZ(0);
+	linearPrimitive.segment(startPosition, endPosition);
+	for (int i = 0; i < horizontalSize; i++) { // Draw vertical lines
+		startPosition.setX(horizontalScaling * (i * xGridResolution));
+		startPosition.setY(verticalScaling * (yGridStart));
+		startPosition.setZ(0);
+		endPosition.setX(horizontalScaling * (i * xGridResolution));
+		endPosition.setY(verticalScaling * (yGridEnd));
+		endPosition.setZ(0);
+		linearPrimitive.segment(startPosition, endPosition);
+		startPosition.setX(horizontalScaling * (i * xGridResolution));
+		startPosition.setY(verticalScaling * (yGridEnd));
+		startPosition.setZ(0);
+		endPosition.setX(horizontalScaling * ((i + 1) * xGridResolution));
+		endPosition.setY(verticalScaling * (yGridEnd));
+		endPosition.setZ(0);
+		linearPrimitive.segment(startPosition, endPosition);
+	}
+	//Travel to origin
+	startPosition.setX(horizontalScaling * (horizontalSize * xGridResolution));
+	startPosition.setY(verticalScaling * (yGridEnd));
+	startPosition.setZ(0);
+	linearPrimitive.segment(startPosition, endPosition);
+	endPosition.setX(0);
+	endPosition.setY(verticalScaling * (yGridEnd));
+	endPosition.setZ(0);
+	linearPrimitive.segment(startPosition, endPosition);
+	startPosition.setX(0);
+	startPosition.setY(verticalScaling * (yGridEnd));
+	startPosition.setZ(0);
+	linearPrimitive.segment(startPosition, endPosition);
+	endPosition.setX(0);
+	endPosition.setY(0);
+	endPosition.setZ(0);
+	linearPrimitive.segment(startPosition, endPosition);
 }
 
 void LinearPlot::createGraph()
